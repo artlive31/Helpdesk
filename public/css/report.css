@@ -1,0 +1,141 @@
+/* ตั้งค่าพื้นฐานสำหรับ body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ชื่อเรื่อง */
+h1, h2 {
+  color: #333;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+/* ข้อความแสดงผลสำเร็จ */
+.success-message {
+  color: green;
+  text-align: center;
+  font-weight: bold;
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #e6ffed;
+  border-radius: 4px;
+  width: 80%;
+}
+
+/* สไตล์ฟอร์มสร้างรายงาน */
+form {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 80%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+input[type="text"]:focus,
+textarea:focus,
+select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* ปุ่มส่งฟอร์ม */
+button {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+button:active {
+  background-color: #004085;
+}
+
+/* สไตล์รายงานในรายการ */
+ul {
+  list-style-type: none;
+  padding: 0;
+  width: 80%;
+  max-width: 700px;
+}
+
+li {
+  background-color: #ffffff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+}
+
+li strong {
+  color: #333;
+  display: inline-block;
+  width: 120px;
+}
+
+.filter-buttons {
+  margin: 20px 0;
+}
+
+.filter-btn {
+  padding: 10px 15px;
+  margin-right: 10px;
+  background-color: #f1f1f1;
+  color: #333;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.filter-btn:hover {
+  background-color: #ddd;
+}
+
+.filter-btn.active {
+  background-color: #4CAF50;
+  color: white;
+}

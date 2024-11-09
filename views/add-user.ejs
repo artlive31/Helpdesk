@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เพิ่มผู้ใช้ใหม่</title>
+  <link rel="stylesheet" href="/css/add-user.css">
+</head>
+
+<body>
+  <%- include('partials/header') %>
+  
+  <h1>เพิ่มผู้ใช้ใหม่</h1>
+  
+  <form action="/add-user" method="POST">
+    <label for="name">ชื่อ:</label>
+    <input type="text" id="username" name="username" required>
+    
+    <label for="email">อีเมล:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">รหัสผ่าน:</label>
+    <input type="password" id="password" name="password" required>
+    
+    <input type="submit" value="เพิ่มผู้ใช้" class="button">
+  </form>
+  
+  <p><a href="/">กลับไปหน้ารายชื่อผู้ใช้</a></p>
+</body>
+</html>

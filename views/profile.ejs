@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="/css/profile.css">
+</head>
+<body>
+
+  <%- include('partials/header') %>
+
+  <div class="profile-container">
+    <h1>Welcome, <%= user.username %>!</h1>
+    <p>Email: <%= user.email %></p>
+    <p>Role: <%= user.role %></p>
+
+    <h2>Messages</h2>
+    <ul class="issue-list">
+      <% if (issues.length > 0) { %>
+        <% issues.forEach(issue => { %>
+          <li>
+            <strong><%= issue.title %></strong> - <%= new Date(issue.created_at).toLocaleString() %>
+            <ul class="message-list">
+              <% messages.filter(message => message.issue_id === issue.issue_id).forEach(message => { %>
+                <li><%= message.message %> - <%= new Date(message.created_at).toLocaleString() %></li>
+              <% }); %>
+            </ul>
+          </li>
+        <% }); %>
+      <% } else { %>
+        <li>No issues found.</li>
+      <% } %>
+    </ul>
+
+    <!-- Logout button -->
+    <form action="/logout" method="POST" class="logout-form">
+      <button type="submit" class="logout-button">Logout</button>
+    </form>
+  </div>
+
+</body>
+</html>

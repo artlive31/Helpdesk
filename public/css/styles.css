@@ -1,0 +1,110 @@
+/* ตั้งค่าพื้นฐานสำหรับ body */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f2f5f7;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ชื่อเรื่อง */
+h1 {
+  font-size: 24px;
+  color: #007bff;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* ฟอร์มค้นหา */
+.search-form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search-form input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.search-form input[type="text"]:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.button {
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.button.delete {
+  background-color: #dc3545;
+}
+
+.button.delete:hover {
+  background-color: #c82333;
+}
+
+/* สไตล์ตาราง */
+table {
+  width: 100%;
+  max-width: 800px;
+  border-collapse: collapse;
+  margin-top: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+table thead {
+  background-color: #007bff;
+  color: #fff;
+}
+
+table th, table td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table td:last-child {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+table td {
+  color: #333;
+}
+
+table td a.button, table td button.button {
+  font-size: 12px;
+  padding: 8px 10px;
+}
+
+/* ข้อความไม่พบข้อมูล */
+table tbody tr td[colspan="4"] {
+  text-align: center;
+  color: #888;
+  padding: 20px;
+}

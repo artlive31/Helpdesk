@@ -1,0 +1,76 @@
+# ระบุเวอร์ชั่นของ Docker Compose
+version: '3'
+
+# กำหนดเซอร์วิสที่จะใช้งาน
+services:
+  # กำหนดเซอร์วิส mysql  
+  mysql:
+    # กำหนด image ที่จะใช้ ในที่นี้ใช้ mysql:8.0 
+    image: mysql:8.0
+    # กำหนด environment สำหรับการตั้งค่า MySQL 
+    environment:
+      # กำหนด root password ของ MySQL 
+      MYSQL_ROOT_PASSWORD: rootpassword
+      # กำหนดชื่อฐานข้อมูล 
+      MYSQL_DATABASE: myapp
+      # กำหนดชื่อผู้ใช้ 
+      MYSQL_USER: user
+      # กำหนดรหัสผ่านผู้ใช้ 
+      MYSQL_PASSWORD: password
+    # กำหนด volume สำหรับเก็บข้อมูลฐานข้อมูล 
+    volumes:
+      # กำหนดชื่อ volume ว่า mysql_data และเก็บไว้ที่ /var/lib/mysql 
+      - mysql_data:/var/lib/mysql
+    # กำหนด port ที่จะเปิดให้ภายนอกเข้าถึง 
+    ports:
+      # กำหนด port 3306 ให้เปิดให้ภายนอกเข้าถึง 
+      - "3307:3307"
+
+  # กำหนดเซอร์วิส phpmyadmin 
+  phpmyadmin:
+    # กำหนด image ที่จะใช้ ในที่นี้ใช้ phpmyadmin/phpmyadmin 
+    image: phpmyadmin/phpmyadmin
+    # กำหนด environment สำหรับการตั้งค่า phpMyAdmin 
+    environment:
+      # กำหนด MySQL host ที่เชื่อมต่อ 
+      PMA_HOST: mysql
+      # กำหนด MySQL user ที่ใช้เข้าใช้งาน 
+      PMA_USER: root
+      # กำหนด MySQL password ที่ใช้เข้าใช้งาน 
+      PMA_PASSWORD: root
+    # กำหนด port ที่จะเปิดให้ภายนอกเข้าถึง
+    ports:
+      # กำหนด port 8080 ให้เปิดให้ภายนอกเข้าถึง 
+      - "8080:80"
+    # depends_on คือการระบุว่าเซอร์วิส phpmyadmin ต้องรอให้เซอร์วิส mysql ทำงานเสร็จก่อน 
+    depends_on:
+      # ระบุเซอร์วิสที่ต้องรอ 
+      - mysql
+
+  # กำหนดเซอร์วิส webapp 
+  webapp:
+    # กำหนด build จาก Dockerfile ที่อยู่ในโฟลเดอร์ปัจจุบัน
+    build: .
+    # กำหนด port ที่จะเปิดให้ภายนอกเข้าถึง 
+    ports:
+      # กำหนด port 3000 ให้เปิดให้ภายนอกเข้าถึง 
+      - "5002:5000"
+    # กำหนด environment สำหรับการตั้งค่า webapp 
+    environment:
+      # กำหนด host ของ MySQL 
+      DB_HOST: mysql
+      # กำหนด user ของ MySQL
+      DB_USER: root
+      # กำหนด password ของ MySQL
+      DB_PASSWORD: root
+      # กำหนดชื่อฐานข้อมูล 
+      DB_NAME: myapp
+    # depends_on คือการระบุว่าเซอร์วิส webapp ต้องรอให้เซอร์วิส mysql ทำงานเสร็จก่อน
+    depends_on:
+      # ระบุเซอร์วิสที่ต้องรอ
+      - mysql
+
+# กำหนด volume สำหรับเก็บข้อมูลฐานข้อมูล 
+volumes:
+  # กำหนดชื่อ volume ว่า mysql_data 
+  mysql_data:

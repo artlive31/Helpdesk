@@ -1,0 +1,77 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.form-container {
+  max-width: 600px; /* Set a max width for the form */
+  margin: 40px auto; /* Center the form vertically and horizontally */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px; /* Space between input fields */
+}
+
+label {
+  display: block; /* Make labels block elements */
+  margin-bottom: 5px; /* Space between label and input */
+  font-weight: bold;
+}
+
+input[type="text"],
+textarea {
+  width: 95%; /* Full width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+textarea {
+  resize: vertical; /* Allow vertical resize only */
+  min-height: 100px; /* Minimum height for the textarea */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  border-color: #007bff; /* Focus color */
+  outline: none; /* Remove outline */
+}
+
+.submit-button {
+  padding: 12px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.submit-button:active {
+  background-color: #004085;
+  transform: translateY(0);
+}

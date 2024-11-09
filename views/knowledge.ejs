@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge Base</title>
+  <link rel="stylesheet" href="/css/knowledge.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <div class="knowledge-container">
+        <h1>Knowledge Base</h1>
+
+        <!-- Search Form -->
+        <form action="/knowledge/search" method="GET" class="search-form">
+            <input type="text" name="query" placeholder="ค้นหาปัญหาหรือวิธีแก้ไข">
+            <button type="submit" class="search-button">ค้นหา</button>
+        </form>
+
+        <section>
+            <h2>FAQ</h2>
+            <ul class="faq-list">
+                <% if (faqs.length > 0) { %>
+                    <% faqs.forEach(faq => { %>
+                        <li>
+                            <h3><%= faq.title %></h3>
+                            <p><%= faq.description %></p>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <li>ไม่พบข้อมูล FAQ</li>
+                <% } %>
+            </ul>
+        </section>
+
+        <section>
+            <h2>ปัญหาทั่วไป</h2>
+            <ul class="solution-list">
+                <% if (solutions.length > 0) { %>
+                    <% solutions.forEach(solution => { %>
+                        <li>
+                            <h3><%= solution.title %></h3>
+                            <p><%= solution.description %></p>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <li>ไม่พบข้อมูลปัญหาทั่วไป</li>
+                <% } %>
+            </ul>
+        </section>
+    </div>
+
+</body>
+</html>

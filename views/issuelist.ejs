@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Issue List</title>
+    <link rel="stylesheet" href="/css/issuelist.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <h1>Issue List</h1>
+    
+    <% if (successMessage) { %>
+        <div class="success-message"><%= successMessage %></div>
+    <% } %>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+                <% if (canViewAllIssues) { %>
+                    <th>Created By</th>
+                <% } %>
+                <th>Created At</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% issues.forEach(issue => { %>
+                <tr>
+                    <td><%= issue.title %></td>
+                    <td><%= issue.description %></td>
+                    <td><%= issue.status_name %></td>
+                    <% if (canViewAllIssues) { %>
+                        <td><%= issue.username %></td>
+                    <% } %>
+                    <td><%= new Date(issue.created_at).toLocaleString() %></td>
+                </tr>
+                <!-- ฟอร์มสำหรับ Queue Manager ในการอัพเดต Priority และ Assignee -->
+                <tr>
+                    <td colspan="5">
+                        <% if (user && user.role_id === 2) { %>
+                            <form action="/queues/updatePriorityAndAssignee" method="POST">
+                                <input type="hidden" name="issue_id" value="<%= issue.issue_id %>">
+                                
+                                <label for="priority">Priority:</label>
+                                <select name="priority">
+                                    <option value="1" <%= issue.priority === 1 ? 'selected' : '' %>>Low</option>
+                                    <option value="2" <%= issue.priority === 2 ? 'selected' : '' %>>Medium</option>
+                                    <option value="3" <%= issue.priority === 3 ? 'selected' : '' %>>High</option>
+                                </select>
+                            
+                                <label for="assigned_to">Assign to:</label>
+                                <input type="text" name="assigned_to" value="<%= issue.assigned_to || '' %>">
+                            
+                                <button type="submit">หมอบหมาย</button>
+                            </form>
+                        <% } %>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>    
+    </table>
+</body>
+</html>

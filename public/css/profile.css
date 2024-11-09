@@ -1,0 +1,70 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.profile-container {
+  max-width: 800px; /* Set a max width for the container */
+  margin: 40px auto; /* Center the container */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  color: #333;
+  text-align: center; /* Center the main heading */
+}
+
+h2 {
+  color: #007bff;
+  border-bottom: 2px solid #007bff; /* Underline for section headings */
+  padding-bottom: 5px; /* Space under the heading */
+}
+
+p {
+  color: #555; /* Color for user details */
+}
+
+.message-list {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove padding */
+}
+
+.message-list li {
+  padding: 15px;
+  border: 1px solid #ddd; /* Border around message items */
+  border-radius: 5px;
+  margin-bottom: 10px; /* Space between message items */
+  background-color: #f9f9f9; /* Light background for messages */
+}
+
+.logout-form {
+  display: flex;
+  justify-content: center; /* Center the logout button */
+  margin-top: 20px; /* Space above the logout button */
+}
+
+.logout-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #dc3545; /* Bootstrap danger color */
+  color: white;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.logout-button:hover {
+  background-color: #c82333; /* Darker shade on hover */
+  transform: translateY(-2px);
+}
+
+.logout-button:active {
+  background-color: #bd2130; /* Even darker shade on active */
+  transform: translateY(0);
+}

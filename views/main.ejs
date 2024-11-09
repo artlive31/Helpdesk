@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>หน้าหลัก</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <header class="main-header">
+        <h1>หน้าหลักระบบจัดการปัญหา</h1>
+        <p>ยินดีต้อนรับ, <%= user.username %></p>
+    </header>
+
+    <main class="main-content">
+        <!-- แสดงข้อความเมื่อสร้าง Issue สำเร็จ -->
+        <% if (successMessage) { %>
+            <p class="success-message"><%= successMessage %></p>
+        <% } %>
+
+        <h2>รายการปัญหาของคุณ</h2>
+
+        <!-- แสดงรายการ Issue -->
+        <table class="issue-table">
+            <thead>
+                <tr>
+                    <th>ลำดับ</th>
+                    <th>ชื่อปัญหา</th>
+                    <th>คำอธิบาย</th>
+                    <th>สถานะ</th>
+                    <th>ความสำคัญ</th>
+                    <th>มอบหมายให้</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% issues.forEach((issue, index) => { %>
+                    <tr>
+                        <td><%= index + 1 %></td>
+                        <td><%= issue.title %></td>
+                        <td><%= issue.description %></td>
+                        <td><%= issue.status_id === 1 ? "ใหม่" : issue.status_id === 2 ? "กำลังดำเนินการ" : "เสร็จสิ้น" %></td>
+                        <td><%= issue.priority === 1 ? "ต่ำ" : issue.priority === 2 ? "กลาง" : "สูง" %></td>
+                        <td><%= issue.assigned_to ? issue.assigned_to : "ยังไม่ได้มอบหมาย" %></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <title>Communication</title>
+    <link rel="stylesheet" href="/css/commu.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    
+    <div class="commu-container">
+        <h1>Communication with Users</h1>
+
+        <!-- ฟอร์มตัวกรองสถานะ -->
+        <form action="/commu/issuelist" method="get" class="status-filter-form">
+            <label for="status-filter">กรองตามสถานะ:</label>
+            <select name="status_id" id="status-filter">
+                <option value="">เลือกสถานะ</option>
+                <option value="1">New</option>
+                <option value="2">Assigned</option>
+                <option value="3">Pending</option>
+                <option value="4">In Progress</option>
+                <option value="5">Resolved</option>
+                <option value="6">Closed</option>
+            </select>
+            <button type="submit">กรอง</button>
+        </form>
+        
+
+        <% if (successMessage) { %>
+            <div class="success-message"><%= successMessage %></div>
+        <% } %>
+
+        <table class="commu-table">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% issues.forEach(issue => { %>
+                    <tr>
+                        <td><%= issue.title %></td>
+                        <td><%= issue.description %></td>
+                        <td><%= issue.status_name %></td>
+                        <td><%= new Date(issue.created_at).toLocaleString() %></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" class="issue-details">
+                            <% if (issue.message) { %>
+                                <p><strong>ข้อความล่าสุด:</strong> <%= issue.message %> (<%= new Date(issue.message_time).toLocaleString() %>)</p>
+                            <% } %>
+                             <!-- ฟอร์มส่งข้อความและอัปเดตสถานะรวมกัน -->
+                            <% if (user && user.role_id === 3 && issue.status_id !== 6) { %>
+                                <form action="/commu/contact-or-update" method="post" class="contact-form">
+                                    <input type="hidden" name="issue_id" value="<%= issue.issue_id %>">
+                                    <textarea name="message" placeholder="ข้อความถึงผู้ใช้"></textarea>
+                                    <button type="submit" class="submit-button">ส่งข้อความและอัปเดตสถานะ</button>
+                                </form>
+                            <% } %>
+                            
+                            <% if (user && user.role_id === 1 && issue.status_id !== 6) { %>
+                                <form action="/commu/resolve" method="post" class="resolve-form">
+                                    <input type="hidden" name="issue_id" value="<%= issue.issue_id %>">
+                                    <button type="submit" class="resolve-button">ได้รับแล้ว</button>
+                                </form>
+                            <% } %>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+        
+    </div>
+</body>
+</html>

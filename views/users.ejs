@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รายชื่อผู้ใช้</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+
+<body>
+
+  <%- include('partials/header') %>
+
+  <h1>รายชื่อผู้ใช้</h1>
+
+  <!-- เพิ่มฟอร์มค้นหา -->
+  <form action="/" method="GET" class="search-form">
+    <input type="text" name="search" placeholder="ค้นหาตามชื่อ" value="<%= search %>">
+    <button type="submit" class="button">ค้นหา</button>
+  </form>
+
+  <a href="/add-user" class="button">เพิ่มผู้ใช้ใหม่</a>
+
+  <!-- แสดงผลการค้นหา (ถ้ามี) -->
+  <% if (search) { %>
+    <p>ผลการค้นหาสำหรับ: <%= search %>
+    </p>
+    <% } %>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ชื่อ</th>
+            <th>อีเมล</th>
+            <th>การดำเนินการ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (users.length===0) { %>
+            <tr>
+              <td colspan="4">ไม่พบข้อมูลผู้ใช้</td>
+            </tr>
+            <% } else { %>
+              <% users.forEach(user=> { %>
+                <tr>
+                  <td>
+                    <%= user.user_id %>
+                  </td>
+                  <td>
+                    <%= user.username %>
+                  </td>
+                  <td>
+                    <%= user.email %>
+                  </td>
+                  <td>
+                    <a href="/users/<%= user.user_id %>/edit" class="button">แก้ไข</a>
+                    <button onclick="deleteUser(<%= user.id %>)" class="button delete">ลบ</button>
+                  </td>
+                </tr>
+                <% }); %>
+                  <% } %>
+        </tbody>
+      </table>
+
+      <script>
+        function deleteUser(id) {
+          if (confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?')) {
+            fetch(`/users/${id}`, { method: 'DELETE' })
+              .then(response => response.json())
+              .then(data => {
+                alert(data.message);
+                location.reload();
+              })
+              .catch(error => console.error('Error:', error));
+          }
+        }
+      </script>
+      
+</body>
+
+</html>

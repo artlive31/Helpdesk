@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายงาน</title>
+    <link rel="stylesheet" href="/css/report.css">
+</head>
+<body>
+
+    <%- include('partials/header') %>
+
+    <% if (showCreateForm) { %>
+        <h1>สร้างรายงาน</h1>
+        <form action="/reports" method="POST">
+            <input type="hidden" name="userId" value="<%= currentUser ? currentUser.user_id : '' %>">
+            
+            <label for="report_title">หัวข้อรายงาน:</label>
+            <input type="text" id="report_title" name="report_title" required>
+            
+            <label for="report_content">เนื้อหารายงาน:</label>
+            <textarea id="report_content" name="report_content" required></textarea>
+            
+            <label for="report_type">ประเภทของรายงาน:</label>
+            <select id="report_type" name="report_type" required>
+                <option value="daily">รายวัน</option>
+                <option value="weekly">รายสัปดาห์</option>
+                <option value="monthly">รายเดือน</option>
+            </select>
+            
+            <button type="submit">สร้างรายงาน</button>
+        </form>
+    <% } %>
+
+    <!-- ปุ่มกรองประเภทของรายงาน -->
+    <div class="filter-buttons">
+        <a href="/reports?report_type=daily" class="filter-btn <%= reportType === 'daily' ? 'active' : '' %>">รายวัน</a>
+        <a href="/reports?report_type=weekly" class="filter-btn <%= reportType === 'weekly' ? 'active' : '' %>">รายสัปดาห์</a>
+        <a href="/reports?report_type=monthly" class="filter-btn <%= reportType === 'monthly' ? 'active' : '' %>">รายเดือน</a>
+        <a href="/reports" class="filter-btn <%= !reportType ? 'active' : '' %>">ทั้งหมด</a>
+    </div>
+
+    <h2>รายงานทั้งหมด</h2>
+    <ul>
+        <% reports.forEach(report => { %>
+            <li>
+                <strong>หัวข้อรายงาน:</strong> <%= report.report_title %><br>
+                <strong>เนื้อหารายงาน:</strong> <%= report.report_content %><br>
+                <strong>ประเภท:</strong> <%= report.report_type %><br>
+                <strong>วันที่สร้าง:</strong> <%= new Date(report.created_at).toLocaleString() %><br>
+                <strong>สร้างโดย:</strong> <%= report.username %>
+            </li>
+        <% }) %>
+    </ul>
+
+</body>
+</html>

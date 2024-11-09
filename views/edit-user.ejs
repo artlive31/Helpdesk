@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แก้ไขข้อมูลผู้ใช้</title>
+  <link rel="stylesheet" href="/css/edit-user.css">
+</head>
+
+<body>
+  <%- include('partials/header') %>
+
+  <h1>แก้ไขข้อมูลผู้ใช้</h1>
+  
+  <!-- ใช้ method PUT เพื่อแก้ไขข้อมูล -->
+  <form action="/users/<%= user.user_id %>" method="POST">
+    <input type="hidden" name="_method" value="PUT">
+    
+    <label for="username">ชื่อผู้ใช้:</label>
+    <input type="text" id="username" name="username" value="<%= user.username %>" required>
+    
+    <label for="email">อีเมล:</label>
+    <input type="email" id="email" name="email" value="<%= user.email %>" required>
+    
+    <div class="button-group">
+      <button type="submit" class="button">บันทึกการเปลี่ยนแปลง</button>
+      <button type="button" class="button delete" onclick="confirmDelete()">ลบผู้ใช้</button>
+    </div>
+  </form>  
+  
+  <a href="/users" class="back-link">กลับไปหน้ารายชื่อผู้ใช้</a>
+
+  <script>
+    async function updateUser() {
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      console.log('Sending data:', { name, email });  // เพิ่มบรรทัดนี้
+
+      // ตรวจสอบข้อมูลก่อนส่งไปยังเซิร์ฟเวอร์
+      if (!name || !email) {
+        alert('กรุณากรอกชื่อและอีเมลให้ครบถ้วน');
+        return;
+      }
+
+      try {
+        // ส่งข้อมูลไปยังเซิร์ฟเวอร์ด้วยเมธอด PUT และระบุ Content-Type เป็น application/json ใน header ของ request ด้วย fetch API ของ JavaScript และรอรับ response กลับ โดยใช้ await กับ fetch และ response.json()
+        const response = await fetch('/users/<%= user.id %>', {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ name, email }),
+        });
+
+        console.log('Response status:', response.status);
+
+        // รับข้อมูล JSON จาก response และเก็บไว้ในตัวแปร data โดยใช้ await กับ response.json() ซึ่งเป็นเมธอดของ response ที่จะแปลงข้อมูล JSON ให้เป็น JavaScript object
+        const data = await response.json();
+        console.log('Response data:', data);
+
+        // 
+        if (response.ok) {
+          alert('อัปเดตข้อมูลผู้ใช้เรียบร้อยแล้ว');
+          window.location.href = '/';
+        } else {
+          alert('เกิดข้อผิดพลาด: ' + (data.error || 'ไม่สามารถอัปเดตข้อมูลได้'));
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('เกิดข้อผิดพลาดในการเชื่อมต่อกับเซิร์ฟเวอร์');
+      }
+    }
+
+    async function confirmDelete() {
+      if (confirm('คุณแน่ใจหรือไม่ที่จะลบผู้ใช้นี้?')) {
+        try {
+          // 
+          const response = await fetch('/users/<%= user.id %>', {
+            method: 'DELETE',
+          });
+          if (response.ok) {
+            alert('ลบผู้ใช้เรียบร้อยแล้ว');
+            window.location.href = '/';
+          } else {
+            const data = await response.json();
+            alert('เกิดข้อผิดพลาด: ' + data.error);
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          alert('เกิดข้อผิดพลาดในการลบผู้ใช้');
+        }
+      }
+    }
+  </script>
+</body>
+</html>

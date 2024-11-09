@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpDesk</title>
+    <link rel="stylesheet" href="/css/header.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <button onclick="window.location.href='<% if (currentUser && currentUser.role_id === 5) { %>/<% } else { %>/main<% } %>'">หน้าหลัก</button>
+  
+            <button onclick="window.location.href='/issues/create'">แจ้งปัญหา</button>
+
+            <% if (currentUser) { %>
+                <% if (currentUser.role_id === 2 || currentUser.role_id === 4 || currentUser.role_id === 5) { %>
+                    <button onclick="window.location.href='/issues/issuelist'">ติดตามสถานะ</button>
+                <% } else if (currentUser.role_id === 1 || currentUser.role_id === 3) { %>
+                    <button onclick="window.location.href='/commu'">ติดตามสถานะ</button>
+                <% } %>
+            <% } %>                                 
+
+            <button onclick="window.location.href='/knowledge'">ฐานข้อมูลความรู้</button>
+            
+            <% if (currentUser && (currentUser.role_id === 4 || currentUser.role_id === 5)) { %>
+                <button onclick="window.location.href='/reports'">รายงานและสถิติ</button>
+            <% } %>
+
+            <% if (isLoggedIn) { %>
+                <button onclick="window.location.href='/profile'">Profile</button>
+            <% } else { %>
+                <button onclick="window.location.href='/login'" class="login-button">ล็อคอิน</button>
+            <% } %>
+        </nav>
+    </header>
+</body>
+</html>

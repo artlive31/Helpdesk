@@ -1,0 +1,99 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.commu-container {
+  max-width: 800px; /* Set a max width for the container */
+  margin: 40px auto; /* Center the container */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.success-message {
+  color: green;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.commu-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.commu-table th, .commu-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: left;
+}
+
+.commu-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.commu-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.commu-table tr:hover {
+  background-color: #e9ecef; /* Highlight row on hover */
+}
+
+.issue-details {
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+textarea {
+  width: 100%; /* Full width */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  resize: vertical; /* Allow vertical resize only */
+  min-height: 50px; /* Minimum height for the textarea */
+}
+
+textarea:focus {
+  border-color: #007bff; /* Focus color */
+  outline: none; /* Remove outline */
+}
+
+.submit-button,
+.status-button,
+.resolve-button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.submit-button:hover,
+.status-button:hover,
+.resolve-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.submit-button:active,
+.status-button:active,
+.resolve-button:active {
+  background-color: #004085;
+  transform: translateY(0);
+}

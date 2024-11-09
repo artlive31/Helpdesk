@@ -1,0 +1,89 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+.knowledge-container {
+  max-width: 800px; /* Set a max width for the container */
+  margin: 40px auto; /* Center the container */
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+.search-form {
+  display: flex;
+  justify-content: center; /* Center the search form */
+  margin-bottom: 20px;
+}
+
+.search-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  width: 60%; /* Width of the input field */
+}
+
+.search-button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.search-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.search-button:active {
+  background-color: #004085;
+  transform: translateY(0);
+}
+
+section {
+  margin-top: 30px; /* Space between sections */
+}
+
+h2 {
+  color: #007bff;
+  border-bottom: 2px solid #007bff; /* Underline for section headings */
+  padding-bottom: 5px; /* Space under the heading */
+}
+
+ul {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove padding */
+}
+
+li {
+  padding: 15px;
+  border: 1px solid #ddd; /* Border around list items */
+  border-radius: 5px;
+  margin-bottom: 10px; /* Space between list items */
+  background-color: #f9f9f9;
+}
+
+li h3 {
+  margin: 0; /* Remove default margin */
+  color: #333;
+}
+
+li p {
+  margin: 5px 0 0; /* Space above the paragraph */
+  color: #666; /* Lighter color for descriptions */
+}

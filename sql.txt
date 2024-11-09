@@ -1,0 +1,103 @@
+//Create Users for Permission  
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE roles (
+    role_id INT AUTO_INCREMENT PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL, -- เช่น "ผู้ใช้งาน", "เจ้าหน้าที่จัดการคิว", "เจ้าหน้าที่ Helpdesk", "ผู้จัดการ", "Admin"
+    description TEXT
+);
+
+CREATE TABLE user_roles (
+    user_id INT,
+    role_id INT,
+    PRIMARY KEY (user_id, role_id),
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id)
+);
+
+CREATE TABLE permissions (
+    permission_id INT AUTO_INCREMENT PRIMARY KEY,
+    permission_name VARCHAR(50) UNIQUE NOT NULL, -- เช่น "Create", "Read", "Update", "Delete"
+    description TEXT
+);
+
+CREATE TABLE role_permissions (
+    role_id INT,
+    permission_id INT,
+    PRIMARY KEY (role_id, permission_id),
+    FOREIGN KEY (role_id) REFERENCES roles(role_id),
+    FOREIGN KEY (permission_id) REFERENCES permissions(permission_id)
+);
+
+//Insert Data INTO Users
+
+INSERT INTO users (username, password, email) VALUES
+('user1', 'hashed_password1', 'user1@gmail.com'),
+('queue_officer', 'hashed_password2', 'queue@gmail.com'),
+('helpdesk_staff', 'hashed_password3', 'helpdesk@gmail.com'),
+('manager', 'hashed_password4', 'manager@gmail.com'),
+('admin', 'hashed_password5', 'admin@gmail.com');
+
+INSERT INTO roles (role_name, description) VALUES
+('ผู้ใช้งาน', 'สิทธิ์สำหรับผู้ใช้งานหรือผู้แจ้งปัญหา'),                           || ('User', 'Permission for users or issue reporters'),
+('เจ้าหน้าที่จัดการคิว', 'สิทธิ์ในการจัดการลำดับความสำคัญของคำขอ'),             || ('Queue Manager', 'Permission to manage the priority of requests'),
+('เจ้าหน้าที่ Helpdesk', 'สิทธิ์ในการติดต่อผู้ใช้งานและอัปเดตสถานะคำขอ'),         || ('Helpdesk Officer', 'Permission to contact users and update request statuses'),
+('ผู้จัดการหรือผู้บริหาร', 'สิทธิ์ในการดูรายงานและข้อมูลสถิติการใช้งาน'),              || ('Executive', 'Permission to view reports and usage statistics'),
+('Admin', 'สิทธิ์ในการจัดการระบบทั้งหมด');                                   || ('Admin', 'Permission to manage the entire system');
+
+-- ผู้ใช้งาน (user1)
+INSERT INTO user_roles (user_id, role_id) VALUES (1, 1);
+
+-- เจ้าหน้าที่จัดการคิว (queue_officer)
+INSERT INTO user_roles (user_id, role_id) VALUES (2, 2);
+
+-- เจ้าหน้าที่ Helpdesk (helpdesk_staff)
+INSERT INTO user_roles (user_id, role_id) VALUES (3, 3);
+
+-- ผู้จัดการหรือผู้บริหาร (manager)
+INSERT INTO user_roles (user_id, role_id) VALUES (4, 4);
+
+-- Admin (admin)
+INSERT INTO user_roles (user_id, role_id) VALUES (5, 5);
+
+
+INSERT INTO permissions (permission_name, description) VALUES
+('Create', 'สร้างคำขอหรือข้อมูลใหม่'),
+('Read', 'ดูข้อมูลและสถานะต่าง ๆ'),
+('Update', 'แก้ไขหรืออัปเดตข้อมูล'),
+('Delete', 'ลบข้อมูล');
+
+-- ผู้ใช้งาน
+INSERT INTO role_permissions (role_id, permission_id) VALUES
+(1, 1), -- Create
+(1, 2), -- Read
+(1, 3); -- Update (บางกรณี)
+
+-- เจ้าหน้าที่จัดการคิว
+INSERT INTO role_permissions (role_id, permission_id) VALUES
+(2, 2), -- Read
+(2, 3); -- Update
+
+-- เจ้าหน้าที่ Helpdesk
+INSERT INTO role_permissions (role_id, permission_id) VALUES
+(3, 2), -- Read
+(3, 3), -- Update
+(3, 1); -- Create (บางกรณี)
+
+-- ผู้จัดการหรือผู้บริหาร
+INSERT INTO role_permissions (role_id, permission_id) VALUES
+(4, 2), -- Read
+(4, 3); -- Update
+
+-- Admin
+INSERT INTO role_permissions (role_id, permission_id) VALUES
+(5, 1), -- Create
+(5, 2), -- Read
+(5, 3), -- Update
+(5, 4); -- Delete
